@@ -37,7 +37,7 @@
             </ScrollViewer>
 
             <!-- TEXTBOX AT BOTTOM -->
-            <TextBox Grid.Row="1" x:Name="Message" Margin=" 0 10 0 0" Watermark="Enter your message" />
+            <TextBox Grid.Row="1" x:Name="Message" KeyDown="SendData" Margin=" 0 10 0 0" Watermark="Enter your message" />
         </Grid>
     </Grid>
 </UserControl>
