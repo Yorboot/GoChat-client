@@ -11,14 +11,33 @@
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
     <vm:MainViewModel />
   </Design.DataContext>
-    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Bottom">
-        <Border>
-            <TextBlock>
-                
-            </TextBlock>
+    <Grid ColumnDefinitions="200, *" RowDefinitions="*">
+        <!-- LEFT PANEL -->
+        <Border Grid.Column="0" Background="#EEE" BorderBrush="#CCC" BorderThickness="1" Padding="20">
+            <StackPanel>
+                <TextBlock Text="Sidebar Item 1" Margin="0 0 0 5"/>
+                <TextBlock Text="Sidebar Item 2" Margin="0 0 0 5"/>
+                <TextBlock Text="Sidebar Item 3" Margin="0 0 0 5"/>
+                <!-- Add more sidebar text blocks here -->
+            </StackPanel>
         </Border>
-        <Border>
-            <TextBox DockPanel.Dock="Bottom" Margin="0 0 0  20">Type your message here</TextBox>
-        </Border>
-    </DockPanel>
+
+        <!-- RIGHT PANEL -->
+        <Grid Grid.Column="1" RowDefinitions="*, Auto" Margin="20">
+            
+            <!-- SCROLLABLE STACKPANEL -->
+            <ScrollViewer Grid.Row="0">
+                <StackPanel>
+                    <TextBlock Text="Scrollable Item 1" Margin="0 0 0 10"/>
+                    <TextBlock Text="Scrollable Item 2" Margin="0 0 0 10"/>
+                    <TextBlock Text="Scrollable Item 3" Margin="0 0 0 10"/>
+                    <TextBlock Text="Scrollable Item 4" Margin="0 0 0 10"/>
+                    <!-- Add more scrollable items as needed -->
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- TEXTBOX AT BOTTOM -->
+            <TextBox Grid.Row="1" x:Name="Message" Margin=" 0 10 0 0" Watermark="Enter your message" />
+        </Grid>
+    </Grid>
 </UserControl>
