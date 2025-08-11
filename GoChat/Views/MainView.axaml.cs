@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using Avalonia.Controls;
 using Avalonia.Input;
 using System.Net.Http;
@@ -27,8 +28,8 @@ public partial class MainView : UserControl
         {
             _message = Message.Text;
             json = @"{
-            ""from"": ""user1"",
-            ""message"": ""$" + _message + @""",
+            ""userId"": ""1"",
+            ""content"": """ + _message + @"""
         }";
         }
     }
@@ -57,9 +58,9 @@ public partial class MainView : UserControl
 
             Console.WriteLine($"Status: {response.StatusCode}");
 
-            var responseBody = await response.Content.ReadAsStringAsync();
+            var responseStatus = (response.StatusCode == HttpStatusCode.OK);
             Console.WriteLine("Response:");
-            Console.WriteLine(responseBody);
+            Console.WriteLine(response);
         }
         catch (Exception ex)
         {
