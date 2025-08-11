@@ -5,11 +5,14 @@ using Avalonia.Input;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using GoChat.Database;
+
 namespace GoChat.Views;
 
 
 public partial class MainView : UserControl
-{
+{   
+    static Database.Database database = new Database.Database();
     static string host = "http://127.0.0.1:8080"; // Change to your host:port
     static string endpoint = "/";         // Optional endpoint
     string url = host + endpoint;
@@ -19,7 +22,7 @@ public partial class MainView : UserControl
     public MainView()
     {
         InitializeComponent();
-        
+        database.InitDb();
     }
 
     private void SetText()
