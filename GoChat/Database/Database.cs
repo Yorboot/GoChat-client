@@ -26,42 +26,7 @@ public class Database
         }
         return null;
     }
-
-    public List<Message> getMessagesAfter(MySqlConnection connection)
-    {
-        List<Message> messages = new();
-        MySqlCommand cmd = new MySqlCommand();
-        cmd.CommandText = "Select id,user_id,content from messages WHERE id > @lastId ORDER BY id ASC";
-        cmd.Connection = connection;
-        cmd.Parameters.Add("@lastId", MySqlDbType.Int32);
-        cmd.Parameters["@lastId"].Value = LastMessageId;
-        using (var reader = cmd.ExecuteReader())
-        {
-            while (reader.Read())
-            {
-                if (reader["content"].ToString() != string.Empty && reader["content"].ToString() != null && reader["id"] != DBNull.Value)
-                {
-                    int id = Convert.ToInt32(reader["id"]);
-                    Message msg = new Message()
-                    {
-                        id = id,
-                        userId = Convert.ToInt32(reader["user_id"]),
-                        content = reader["content"].ToString(),
-                    };
-                }
-                
-            };
-            if (messages.Count > 0)
-            {
-                return messages;
-            }
-            else
-            {
-                return null;
-            }
-            
-        }
-    }
+    
 
     public List<Message> getAllMessages(MySqlConnection connection)
     {

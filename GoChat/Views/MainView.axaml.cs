@@ -79,35 +79,6 @@ public partial class MainView : UserControl
             Console.WriteLine(ex.Message);
         }
     }
-    private void PrintMessagesAfter()
-    {
-        List<Message> messages = database.getMessagesAfter(conn);
-        //first check is needed due to the return values of getMessageAfter
-        if (messages == null || messages.Count == 0)
-        {
-            return;
-        }
-
-        int maxId = database.LastMessageId;
-        foreach (Message msg in messages)
-        {
-            if (msg.content != string.Empty)
-            {
-                Console.WriteLine($"{msg.content}");
-                var tb = new TextBlock
-                {
-                    Text = $"message sent by: {msg.userId}\n"+msg.content,
-                    FontSize = 16,
-                };
-                MessageContainer.Children.Add(tb);
-                if(msg.id > maxId)
-                    maxId = msg.id;
-            }
-            
-        }
-        database.LastMessageId = maxId;
-
-    }
 
     private void PrintAllMessages()
     {
