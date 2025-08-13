@@ -8,7 +8,7 @@ public class Database
 {
     MySql.Data.MySqlClient.MySqlConnection conn;
     private string connectionString;
-    public  int LastMessageId = 0;
+    public int LastMessageId = 0;
     public MySql.Data.MySqlClient.MySqlConnection InitDb()
     {
         connectionString ="Server=127.0.0.1;Port=3306;Database=gochat;User ID=root;Password=;";
@@ -27,11 +27,11 @@ public class Database
         return null;
     }
 
-    public Dictionary<int,string> getMessages(MySqlConnection connection)
+    public Dictionary<int,string> getMessagesAfter(MySqlConnection connection)
     {
         Dictionary<int,string> messages = new();
         MySqlCommand cmd = new MySqlCommand();
-        cmd.CommandText = "Select id,content from messages WHERE id > @lastId ORDER BY id";
+        cmd.CommandText = "Select id,content from messages WHERE id > @lastId ORDER BY id ASC";
         cmd.Connection = connection;
         cmd.Parameters.Add("@lastId", MySqlDbType.Int32);
         cmd.Parameters["@lastId"].Value = LastMessageId;
@@ -55,6 +55,35 @@ public class Database
                 return null;
             }
             
+        }
+    }
+
+    public Dictionary<int, string> getAllMessages(MySqlConnection connection)
+    {
+        Dictionary<int, string> messages = new();
+        MySqlCommand cmd = new MySqlCommand();
+        cmd.CommandText = "Select id,content from messages";
+        cmd.Connection = connection;
+        using (var reader = cmd.ExecuteReader())
+        {
+            while (reader.Read())
+            {
+                if (reader["content"].ToString() != string.Empty && reader["content"].ToString() != null &&
+                    reader["id"] != DBNull.Value)
+                {
+                    int id = Convert.ToInt32(reader["id"]);
+                    messages.Add(id, reader["content"].ToString());
+                }
+            }
+        }
+
+        if (messages.Count > 0)
+        {
+            return messages;
+        }
+        else
+        {
+            return null;
         }
     }
 }

@@ -25,7 +25,7 @@ public partial class MainView : UserControl
     {
         InitializeComponent();
         conn = database.InitDb();
-        PrintMessages();
+        PrintAllMessages();
     }
 
     private void SetText()
@@ -67,7 +67,7 @@ public partial class MainView : UserControl
             var responseStatus = (response.StatusCode == HttpStatusCode.OK);
             if (responseStatus)
             {
-                PrintMessages();
+                PrintMessagesAfter();
             }
             Console.WriteLine("Response:");
             Console.WriteLine(response);
@@ -78,9 +78,15 @@ public partial class MainView : UserControl
             Console.WriteLine(ex.Message);
         }
     }
-    private void PrintMessages()
+    private void PrintMessagesAfter()
     {
-        Dictionary<int,string> messages = database.getMessages(conn);
+        Dictionary<int,string> messages = database.getMessagesAfter(conn);
+        if (messages == null || messages.Count == 0)
+        {
+            return;
+        }
+
+        int maxId = database.LastMessageId;
         foreach (KeyValuePair<int,string> pair in messages)
         {
             if (pair.Value != string.Empty)
@@ -91,21 +97,42 @@ public partial class MainView : UserControl
                     Text = pair.Value,
                     FontSize = 16,
                 };
+                MessageContainer.Children.Add(tb);
+                if(pair.Key > maxId)
+                    maxId = pair.Key;
+            }
+            
+        }
+        database.LastMessageId = maxId;
 
+    }
+
+    private void PrintAllMessages()
+    {
+        Dictionary<int, string> messages = database.getAllMessages(conn);
+        int index = 0;
+        foreach (KeyValuePair<int, string> pair in messages)
+        {
+            index += 1;
+            if (pair.Value != string.Empty)
+            {
                 if (_messages.Add(pair.Value))
                 {
+                    var tb = new TextBlock
+                    {
+                        Text = pair.Value,
+                        FontSize = 16,
+                    };
                     MessageContainer.Children.Add(tb);
                 }
-                else
-                {
-                    Console.WriteLine($"Preventing duplicate message {pair.Value}");
-                    continue;
-                }
+            }
 
+            if (index == messages.Count)
+            {
+                Console.WriteLine($"set last id to{pair.Key}");
                 database.LastMessageId = pair.Key;
             }
         }
-
     }
 
     private void PreventDuplicateMessages(string message)
@@ -114,7 +141,6 @@ public partial class MainView : UserControl
         {
             if (child is TextBlock textBlock && textBlock.Text == message)
             {
-                
                 return;
             }
         }
