@@ -136,15 +136,5 @@ public partial class MainView : UserControl
             }
         }
     }
-
-    private void PreventDuplicateMessages(string message)
-    {
-        foreach (var child in MessageContainer.Children)
-        {
-            if (child is TextBlock textBlock && textBlock.Text == message)
-            {
-                return;
-            }
-        }
-    }
+    
 }
