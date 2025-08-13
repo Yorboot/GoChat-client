@@ -25,7 +25,7 @@ public partial class MainView : UserControl
     {
         InitializeComponent();
         conn = database.InitDb();
-        PrintAllMessages();
+        PrintMessages();
     }
 
     private void SetText()
@@ -67,7 +67,7 @@ public partial class MainView : UserControl
             var responseStatus = (response.StatusCode == HttpStatusCode.OK);
             if (responseStatus)
             {
-                PrintAllMessages();
+                PrintMessages();
             }
             Console.WriteLine("Response:");
             Console.WriteLine(response);
@@ -80,9 +80,9 @@ public partial class MainView : UserControl
         }
     }
 
-    private void PrintAllMessages()
+    private void PrintMessages()
     {
-        List<Message> messages = database.getAllMessages(conn);
+        List<Message> messages = database.getMessages(conn);
         int index = 0;
         foreach (Message msg in messages)
         {

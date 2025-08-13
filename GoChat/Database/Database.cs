@@ -28,7 +28,7 @@ public class Database
     }
     
 
-    public List<Message> getAllMessages(MySqlConnection connection)
+    public List<Message> getMessages(MySqlConnection connection)
     {
         List<Message> messages = new();
         MySqlCommand cmd = new MySqlCommand();
