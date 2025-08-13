@@ -58,9 +58,9 @@ public class Database
         }
     }
 
-    public Dictionary<int, string> getAllMessages(MySqlConnection connection)
+    public List<Message> getAllMessages(MySqlConnection connection)
     {
-        Dictionary<int, string> messages = new();
+        List<Message> messages = new();
         MySqlCommand cmd = new MySqlCommand();
         cmd.CommandText = "Select id,content from messages";
         cmd.Connection = connection;
@@ -86,4 +86,11 @@ public class Database
             return null;
         }
     }
+}
+
+public struct Message
+{
+    private int id;
+    private int userId;
+    private string content;
 }
