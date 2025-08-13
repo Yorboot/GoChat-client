@@ -8,7 +8,7 @@ public class Database
 {
     MySql.Data.MySqlClient.MySqlConnection conn;
     private string connectionString;
-    public static int lastMessageId;
+    public  int LastMessageId = 0;
     public MySql.Data.MySqlClient.MySqlConnection InitDb()
     {
         connectionString ="Server=127.0.0.1;Port=3306;Database=gochat;User ID=root;Password=;";
@@ -34,6 +34,7 @@ public class Database
         cmd.CommandText = "Select id,content from messages WHERE id > @lastId ORDER BY id";
         cmd.Connection = connection;
         cmd.Parameters.Add("@lastId", MySqlDbType.Int32);
+        cmd.Parameters["@lastId"].Value = LastMessageId;
         using (var reader = cmd.ExecuteReader())
         {
             while (reader.Read())
