@@ -96,7 +96,7 @@ public partial class MainView : UserControl
                 Console.WriteLine($"{pair.Value}");
                 var tb = new TextBlock
                 {
-                    Text = pair.Value,
+                    Text = $"message sent by: {pair.Key}\n"+pair.Value,
                     FontSize = 16,
                 };
                 MessageContainer.Children.Add(tb);
@@ -111,18 +111,18 @@ public partial class MainView : UserControl
 
     private void PrintAllMessages()
     {
-        Dictionary<int, string> messages = database.getAllMessages(conn);
+        List<Message> messages = database.getAllMessages(conn);
         int index = 0;
-        foreach (KeyValuePair<int, string> pair in messages)
+        foreach (Message msg in messages)
         {
             index += 1;
-            if (pair.Value != string.Empty)
+            if (msg.content != string.Empty)
             {
-                if (_messages.Add(pair.Value))
+                if (_messages.Add(msg.content))
                 {
                     var tb = new TextBlock
                     {
-                        Text = pair.Value,
+                        Text = $"This message was sent by{msg.userId} it contains {msg.content}",
                         FontSize = 16,
                     };
                     MessageContainer.Children.Add(tb);
@@ -131,8 +131,8 @@ public partial class MainView : UserControl
 
             if (index == messages.Count)
             {
-                Console.WriteLine($"set last id to{pair.Key}");
-                database.LastMessageId = pair.Key;
+                Console.WriteLine($"set last id to{msg.id}");
+                database.LastMessageId = msg.id;
             }
         }
     }

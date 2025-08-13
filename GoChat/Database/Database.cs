@@ -62,7 +62,7 @@ public class Database
     {
         List<Message> messages = new();
         MySqlCommand cmd = new MySqlCommand();
-        cmd.CommandText = "Select id,content from messages";
+        cmd.CommandText = "Select id,user_id,content from messages";
         cmd.Connection = connection;
         using (var reader = cmd.ExecuteReader())
         {
@@ -74,9 +74,11 @@ public class Database
                     int id = Convert.ToInt32(reader["id"]);
                     Message m = new Message()
                     {
-                        id = id;
+                        id = id,
+                        userId = Convert.ToInt32(reader["user_id"]),
+                        content = reader["content"].ToString(),
                     };
-                    messages.Add(id, reader["content"].ToString());
+                    messages.Add(m);
                 }
             }
         }
@@ -94,7 +96,8 @@ public class Database
 
 public struct Message
 {
-    private int id { get; set; }
-    private int userId { get; set; }
-    private string content { get; set; }
+    public int id { get; set; }
+
+    public int userId { get; set; }
+    public string content { get; set; }
 }
