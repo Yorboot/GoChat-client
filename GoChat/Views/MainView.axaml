@@ -13,9 +13,9 @@
         <!-- LEFT PANEL -->
         <Border Grid.Column="0" Background="#EEE" BorderBrush="#CCC" BorderThickness="1" Padding="20">
             <StackPanel>
-                <TextBlock Text="Sidebar Item 1" Margin="0 0 0 5"/>
-                <TextBlock Text="Sidebar Item 2" Margin="0 0 0 5"/>
-                <TextBlock Text="Sidebar Item 3" Margin="0 0 0 5"/>
+                <TextBlock Text="User1" Margin="0 0 0 5"/>
+                <TextBlock Text="User1" Margin="0 0 0 5"/>
+                <TextBlock Text="User1" Margin="0 0 0 5"/>
                 <!-- Add more sidebar text blocks here -->
             </StackPanel>
         </Border>
