@@ -89,19 +89,19 @@ public partial class MainView : UserControl
         }
 
         int maxId = database.LastMessageId;
-        foreach (KeyValuePair<int,string> pair in messages)
+        foreach (Message msg in messages)
         {
-            if (pair.Value != string.Empty)
+            if (msg.content != string.Empty)
             {
-                Console.WriteLine($"{pair.Value}");
+                Console.WriteLine($"{msg.content}");
                 var tb = new TextBlock
                 {
-                    Text = $"message sent by: {pair.Key}\n"+pair.Value,
+                    Text = $"message sent by: {msg.userId}\n"+msg.content,
                     FontSize = 16,
                 };
                 MessageContainer.Children.Add(tb);
-                if(pair.Key > maxId)
-                    maxId = pair.Key;
+                if(msg.id > maxId)
+                    maxId = msg.id;
             }
             
         }
@@ -122,7 +122,7 @@ public partial class MainView : UserControl
                 {
                     var tb = new TextBlock
                     {
-                        Text = $"This message was sent by{msg.userId} it contains {msg.content}",
+                        Text = $"This message was sent by{msg.userId}\n  {msg.content}",
                         FontSize = 16,
                     };
                     MessageContainer.Children.Add(tb);
