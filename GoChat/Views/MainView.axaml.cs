@@ -18,13 +18,14 @@ public partial class MainView : UserControl
     static string host = "http://127.0.0.1:8080";
     static string endpoint = "/";
     string url = host + endpoint;
-    
+    private HashSet<string> _messages = new();
     static string _message = string.Empty;
     private static string json = string.Empty;
     public MainView()
     {
         InitializeComponent();
         conn = database.InitDb();
+        PrintMessages();
     }
 
     private void SetText()
@@ -66,14 +67,7 @@ public partial class MainView : UserControl
             var responseStatus = (response.StatusCode == HttpStatusCode.OK);
             if (responseStatus)
             {
-                List<string> messages = database.getMessages(conn);
-                foreach (string message in messages)
-                {
-                    if (_message != string.Empty)
-                    {
-                        Console.WriteLine($"{message}");
-                    }
-                }
+                PrintMessages();
             }
             Console.WriteLine("Response:");
             Console.WriteLine(response);
@@ -82,6 +76,46 @@ public partial class MainView : UserControl
         {
             Console.WriteLine("Error sending request:");
             Console.WriteLine(ex.Message);
+        }
+    }
+    private void PrintMessages()
+    {
+        List<string> messages = database.getMessages(conn);
+        foreach (string message in messages)
+        {
+            if (message != string.Empty)
+            {
+                Console.WriteLine($"{message}");
+                var tb = new TextBlock
+                {
+                    Text = message,
+                    FontSize = 16,
+                };
+
+                if (_messages.Add(message))
+                {
+                    MessageContainer.Children.Add(tb);
+                }
+                else
+                {
+                    Console.WriteLine($"Preventing duplicate message {message}");
+                    continue;
+                }
+                
+            }
+        }
+
+    }
+
+    private void PreventDuplicateMessages(string message)
+    {
+        foreach (var child in MessageContainer.Children)
+        {
+            if (child is TextBlock textBlock && textBlock.Text == message)
+            {
+                
+                return;
+            }
         }
     }
 }

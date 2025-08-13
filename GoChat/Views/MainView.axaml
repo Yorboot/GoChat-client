@@ -26,10 +26,6 @@
             <!-- SCROLLABLE STACKPANEL -->
             <ScrollViewer Grid.Row="0">
                 <StackPanel x:Name="MessageContainer">
-                    <TextBlock Text="Scrollable Item 1" Margin="0 0 0 10"/>
-                    <TextBlock Text="Scrollable Item 2" Margin="0 0 0 10"/>
-                    <TextBlock Text="Scrollable Item 3" Margin="0 0 0 10"/>
-                    <TextBlock Text="Scrollable Item 4" Margin="0 0 0 10"/>
                 </StackPanel>
             </ScrollViewer>
 
