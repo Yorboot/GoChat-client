@@ -13,7 +13,7 @@ namespace GoChat.Views;
 
 public partial class MainView : UserControl
 {   
-    static Database.Database database = new Database.Database();
+    private static Database.Database database = new ();
     MySql.Data.MySqlClient.MySqlConnection conn;
     static string host = "http://127.0.0.1:8080";
     static string endpoint = "/";
@@ -82,6 +82,7 @@ public partial class MainView : UserControl
     private void PrintMessagesAfter()
     {
         Dictionary<int,string> messages = database.getMessagesAfter(conn);
+        //first check is needed due to the return values of getMessageAfter
         if (messages == null || messages.Count == 0)
         {
             return;
