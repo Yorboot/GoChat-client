@@ -31,7 +31,7 @@ public class Database
     {
         List<Message> messages = new();
         MySqlCommand cmd = new MySqlCommand();
-        cmd.CommandText = "Select id,content from messages WHERE id > @lastId ORDER BY id ASC";
+        cmd.CommandText = "Select id,user_id,content from messages WHERE id > @lastId ORDER BY id ASC";
         cmd.Connection = connection;
         cmd.Parameters.Add("@lastId", MySqlDbType.Int32);
         cmd.Parameters["@lastId"].Value = LastMessageId;

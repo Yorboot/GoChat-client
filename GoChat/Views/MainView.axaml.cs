@@ -67,7 +67,7 @@ public partial class MainView : UserControl
             var responseStatus = (response.StatusCode == HttpStatusCode.OK);
             if (responseStatus)
             {
-                PrintMessagesAfter();
+                PrintAllMessages();
             }
             Console.WriteLine("Response:");
             Console.WriteLine(response);
