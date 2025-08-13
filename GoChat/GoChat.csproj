@@ -21,5 +21,6 @@
         </PackageReference>
         <PackageReference Include="CommunityToolkit.Mvvm"/>
         <PackageReference Include="MySql.Data" />
+        <PackageReference Include="MySql.Data.EntityFramework" />
     </ItemGroup>
 </Project>

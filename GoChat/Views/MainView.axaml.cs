@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -13,8 +14,9 @@ namespace GoChat.Views;
 public partial class MainView : UserControl
 {   
     static Database.Database database = new Database.Database();
-    static string host = "http://127.0.0.1:8080"; // Change to your host:port
-    static string endpoint = "/";         // Optional endpoint
+    MySql.Data.MySqlClient.MySqlConnection conn;
+    static string host = "http://127.0.0.1:8080";
+    static string endpoint = "/";
     string url = host + endpoint;
     
     static string _message = string.Empty;
@@ -22,7 +24,7 @@ public partial class MainView : UserControl
     public MainView()
     {
         InitializeComponent();
-        database.InitDb();
+        conn = database.InitDb();
     }
 
     private void SetText()
@@ -62,6 +64,17 @@ public partial class MainView : UserControl
             Console.WriteLine($"Status: {response.StatusCode}");
 
             var responseStatus = (response.StatusCode == HttpStatusCode.OK);
+            if (responseStatus)
+            {
+                List<string> messages = database.getMessages(conn);
+                foreach (string message in messages)
+                {
+                    if (_message != string.Empty)
+                    {
+                        Console.WriteLine($"{message}");
+                    }
+                }
+            }
             Console.WriteLine("Response:");
             Console.WriteLine(response);
         }
