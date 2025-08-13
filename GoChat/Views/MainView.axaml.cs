@@ -80,28 +80,29 @@ public partial class MainView : UserControl
     }
     private void PrintMessages()
     {
-        List<string> messages = database.getMessages(conn);
-        foreach (string message in messages)
+        Dictionary<int,string> messages = database.getMessages(conn);
+        foreach (KeyValuePair<int,string> pair in messages)
         {
-            if (message != string.Empty)
+            if (pair.Value != string.Empty)
             {
-                Console.WriteLine($"{message}");
+                Console.WriteLine($"{pair.Value}");
                 var tb = new TextBlock
                 {
-                    Text = message,
+                    Text = pair.Value,
                     FontSize = 16,
                 };
 
-                if (_messages.Add(message))
+                if (_messages.Add(pair.Value))
                 {
                     MessageContainer.Children.Add(tb);
                 }
                 else
                 {
-                    Console.WriteLine($"Preventing duplicate message {message}");
+                    Console.WriteLine($"Preventing duplicate message {pair.Value}");
                     continue;
                 }
-                
+
+                database.LastMessageId = pair.Key;
             }
         }
 
