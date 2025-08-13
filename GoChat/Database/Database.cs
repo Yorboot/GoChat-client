@@ -72,6 +72,10 @@ public class Database
                     reader["id"] != DBNull.Value)
                 {
                     int id = Convert.ToInt32(reader["id"]);
+                    Message m = new Message()
+                    {
+                        id = id;
+                    };
                     messages.Add(id, reader["content"].ToString());
                 }
             }
@@ -90,7 +94,7 @@ public class Database
 
 public struct Message
 {
-    private int id;
-    private int userId;
-    private string content;
+    private int id { get; set; }
+    private int userId { get; set; }
+    private string content { get; set; }
 }
