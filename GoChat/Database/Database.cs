@@ -27,9 +27,9 @@ public class Database
         return null;
     }
 
-    public Dictionary<int,string> getMessagesAfter(MySqlConnection connection)
+    public List<Message> getMessagesAfter(MySqlConnection connection)
     {
-        Dictionary<int,string> messages = new();
+        List<Message> messages = new();
         MySqlCommand cmd = new MySqlCommand();
         cmd.CommandText = "Select id,content from messages WHERE id > @lastId ORDER BY id ASC";
         cmd.Connection = connection;
@@ -42,7 +42,12 @@ public class Database
                 if (reader["content"].ToString() != string.Empty && reader["content"].ToString() != null && reader["id"] != DBNull.Value)
                 {
                     int id = Convert.ToInt32(reader["id"]);
-                    messages.Add(id,reader["content"].ToString());
+                    Message msg = new Message()
+                    {
+                        id = id,
+                        userId = Convert.ToInt32(reader["user_id"]),
+                        content = reader["content"].ToString(),
+                    };
                 }
                 
             };

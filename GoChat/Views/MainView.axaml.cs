@@ -81,7 +81,7 @@ public partial class MainView : UserControl
     }
     private void PrintMessagesAfter()
     {
-        Dictionary<int,string> messages = database.getMessagesAfter(conn);
+        List<Message> messages = database.getMessagesAfter(conn);
         //first check is needed due to the return values of getMessageAfter
         if (messages == null || messages.Count == 0)
         {
