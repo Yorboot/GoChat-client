@@ -71,6 +71,7 @@ public partial class MainView : UserControl
             }
             Console.WriteLine("Response:");
             Console.WriteLine(response);
+            Message.Clear();
         }
         catch (Exception ex)
         {
