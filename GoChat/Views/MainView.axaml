@@ -28,8 +28,7 @@
                 <StackPanel x:Name="MessageContainer">
                 </StackPanel>
             </ScrollViewer>
-
-            <!-- TEXTBOX AT BOTTOM -->
+            
             <TextBox Grid.Row="1" x:Name="Message" KeyDown="sendData" Margin=" 0 10 0 0" Watermark="Enter your message" />
         </Grid>
     </Grid>
