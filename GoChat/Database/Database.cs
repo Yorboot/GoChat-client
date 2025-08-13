@@ -8,6 +8,7 @@ public class Database
 {
     MySql.Data.MySqlClient.MySqlConnection conn;
     private string connectionString;
+    public static int lastMessageId;
     public MySql.Data.MySqlClient.MySqlConnection InitDb()
     {
         connectionString ="Server=127.0.0.1;Port=3306;Database=gochat;User ID=root;Password=;";
@@ -26,19 +27,21 @@ public class Database
         return null;
     }
 
-    public List<string> getMessages(MySqlConnection connection)
+    public Dictionary<int,string> getMessages(MySqlConnection connection)
     {
-        List<string> messages = new List<string>();
+        Dictionary<int,string> messages = new();
         MySqlCommand cmd = new MySqlCommand();
-        cmd.CommandText = "Select content from messages";
+        cmd.CommandText = "Select id,content from messages WHERE id > @lastId ORDER BY id";
         cmd.Connection = connection;
+        cmd.Parameters.Add("@lastId", MySqlDbType.Int32);
         using (var reader = cmd.ExecuteReader())
         {
             while (reader.Read())
             {
-                if (reader["content"].ToString() != string.Empty || reader["date"].ToString() != null)
+                if (reader["content"].ToString() != string.Empty && reader["content"].ToString() != null && reader["id"] != DBNull.Value)
                 {
-                    messages.Add(reader["content"].ToString());
+                    int id = Convert.ToInt32(reader["id"]);
+                    messages.Add(id,reader["content"].ToString());
                 }
                 
             };
