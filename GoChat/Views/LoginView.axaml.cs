@@ -10,4 +10,9 @@ public partial class LoginView : UserControl
     {
         InitializeComponent();
     }
+
+    public bool LoginSuccess()
+    {
+        return false;
+    }
 }
