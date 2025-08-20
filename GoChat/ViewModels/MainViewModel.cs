@@ -1,8 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿namespace GoChat.ViewModels;
 
-namespace GoChat.ViewModels;
-
-public partial class MainViewModel : ViewModelBase
+public class MainViewModel: ViewModelBase
 {
-    [ObservableProperty] private string _greeting = "Welcome to Avalonia!";
+    
 }
