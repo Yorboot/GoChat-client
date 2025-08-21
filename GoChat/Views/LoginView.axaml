@@ -2,12 +2,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:GoChat.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="GoChat.Views.LoginView">
+             x:Class="GoChat.Views.LoginView"
+             x:DataType="vm:LoginViewModel"
+             x:CompileBindings="True"
+             >
     
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-        <TextBox Watermark="Enter email"></TextBox>
-        <TextBox Watermark="Password"></TextBox>
+        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center" Text="{Binding Title }"></TextBlock>
+        <TextBox Watermark="Enter Username" Text="{Binding Username}"></TextBox>
+        <TextBox Watermark="Password" Text="{Binding Password}" PasswordChar="["></TextBox>
         <Button>Confirm</Button>
     </StackPanel>
 </UserControl>
