@@ -34,4 +34,15 @@ public class MainWindowViewModel: ViewModelBase
         }
         CurrentPage = Pages[index];
     }
+    public ICommand NavigatePreviousCommand { get; }
+
+    private void NavigatePrevious()
+    {
+        var index = Pages.IndexOf(CurrentPage) -1;
+        if (index < 0)
+        {
+            index = 0;
+        }
+        CurrentPage = Pages[index];
+    }
 }
