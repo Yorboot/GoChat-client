@@ -1,4 +1,6 @@
-﻿using ReactiveUI;
+﻿using System.Windows.Input;
+using DynamicData;
+using ReactiveUI;
 
 namespace GoChat.ViewModels;
 
@@ -20,5 +22,12 @@ public class MainWindowViewModel: ViewModelBase
     {
         get { return _currentPage; }
         private set { this.RaiseAndSetIfChanged(ref _currentPage, value); }
+    }
+    public ICommand NavigateNextCommand { get; }
+
+    private void NavigateNext()
+    {
+        var index = Pages.IndexOf(CurrentPage) +1;
+        CurrentPage = Pages[index];
     }
 }
