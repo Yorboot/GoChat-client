@@ -5,4 +5,9 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="GoChat.Views.LoginView">
     
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBox Watermark="Enter email"></TextBox>
+        <TextBox Watermark="Password"></TextBox>
+        <Button>Confirm</Button>
+    </StackPanel>
 </UserControl>
