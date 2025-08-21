@@ -11,7 +11,7 @@ public partial class LoginView : UserControl
         InitializeComponent();
     }
 
-    public bool LoginSuccess()
+    public static bool LoginSuccess()
     {
         return false;
     }
