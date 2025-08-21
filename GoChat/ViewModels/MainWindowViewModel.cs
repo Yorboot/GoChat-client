@@ -28,6 +28,10 @@ public class MainWindowViewModel: ViewModelBase
     private void NavigateNext()
     {
         var index = Pages.IndexOf(CurrentPage) +1;
+        if (index >= Pages.Length)
+        {
+            index = 0;
+        }
         CurrentPage = Pages[index];
     }
 }
