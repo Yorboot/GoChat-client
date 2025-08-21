@@ -6,36 +6,33 @@ namespace GoChat.ViewModels;
 
 public class LoginViewModel: PageViewModelBase
 {
-    private string? _Username;
-    private string? _Password;
+    private string? _username;
+    private string? _password;
     public LoginViewModel()
     {
-        this.WhenAnyValue(x => x.Username, x => x.Password)
+        this.WhenAnyValue(x => x.Username, x => x.Password).Subscribe(_ => UpdateCanNavigateNext());
     }
 
     [Required]
     public string? Username
     {
         //change this when login logic is correctly implemented
-        get { return _Username; }
-        set { this.RaiseAndSetIfChanged(ref _Username, value); }
+        get { return _username; }
+        set { this.RaiseAndSetIfChanged(ref _username, value); }
     }
 
     [Required]
     public string? Password
     {
-        get { return _Password; }
-        set {this.RaiseAndSetIfChanged(ref _Password, value); }
+        get { return _password; }
+        set {this.RaiseAndSetIfChanged(ref _password, value); }
     }
     public string Title => "Login";
-    private bool canNavigateNext;
+    private bool _canNavigateNext;
     public override bool CanNavigateNext
     {
-        get => CanNavigateNext;
-        protected set
-        {
-            throw new NotSupportedException(); 
-        }
+        get { return _canNavigateNext; }
+        protected set { this.RaiseAndSetIfChanged(ref _canNavigateNext, value); }
     }
 
     public override bool CanNavigatePrevious
