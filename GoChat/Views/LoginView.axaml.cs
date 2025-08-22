@@ -13,6 +13,6 @@ public partial class LoginView : UserControl
 
     public static bool LoginSuccess()
     {
-        return false;
+        return true;
     }
 }
