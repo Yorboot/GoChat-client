@@ -8,6 +8,6 @@
         x:Class="GoChat.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="GoChat">
-    <views:MainView />
+    <views:LoginView />
         
 </Window>
