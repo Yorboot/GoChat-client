@@ -14,6 +14,8 @@ public class LoginViewModel: PageViewModelBase
     {
         var canNavNext = this.WhenAnyValue(x => CurrentPage.CanNavigateNext);
         var canNavigatePrevious = this.WhenAnyValue(x => CurrentPage.CanNavigatePrevious);
+        NavigateNextCommand = ReactiveCommand.Create(NavigateNext, canNavNext);
+        NavigatePreviousCommand = ReactiveCommand.Create(NavigatePrevious, canNavigatePrevious);
         _currentPage = Pages[0];
         this.WhenAnyValue(x => x.Username, x => x.Password).Subscribe(_ => UpdateCanNavigateNext());
     }
@@ -33,7 +35,7 @@ public class LoginViewModel: PageViewModelBase
         set {this.RaiseAndSetIfChanged(ref _password, value); }
     }
     public string Title => "Login";
-    private bool _canNavigateNext;
+    private bool _canNavigateNext = true;
     public override bool CanNavigateNext
     {
         get { return _canNavigateNext; }
