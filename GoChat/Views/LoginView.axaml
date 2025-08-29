@@ -9,13 +9,13 @@
              x:CompileBindings="True"
              >
     <Design.DataContext>
-        <vm:MainViewModel/>
+        <vm:LoginViewModel/>
     </Design.DataContext>
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
         <TransitioningContentControl Content="{Binding CurrentPage}"></TransitioningContentControl>
         <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center" Text="{Binding Title }"></TextBlock>
         <TextBox Watermark="Enter Username" Text="{Binding Username}"></TextBox>
-        <TextBox Watermark="Password" Text="{Binding Password}" PasswordChar="["></TextBox>
-        <Button Command="{Binding NavigateNextCommand}">Confirm</Button>
+        <TextBox Watermark="Password"  Text="{Binding Password}" PasswordChar="["></TextBox>
+        <Button Click="SetNextPage">Confirm</Button>
     </StackPanel>
 </UserControl>

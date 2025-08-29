@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Windows.Input;
 using DynamicData;
@@ -12,12 +13,14 @@ public class LoginViewModel: PageViewModelBase
     private string? _password;
     public LoginViewModel()
     {
-        var canNavNext = this.WhenAnyValue(x => CurrentPage.CanNavigateNext);
-        var canNavigatePrevious = this.WhenAnyValue(x => CurrentPage.CanNavigatePrevious);
-        NavigateNextCommand = ReactiveCommand.Create(NavigateNext, canNavNext);
-        NavigatePreviousCommand = ReactiveCommand.Create(NavigatePrevious, canNavigatePrevious);
-        _currentPage = Pages[0];
-        this.WhenAnyValue(x => x.Username, x => x.Password).Subscribe(_ => UpdateCanNavigateNext());
+        Console.WriteLine("In LoginViewModel constructor");
+        // var test = CurrentPage.CanNavigateNext;
+        // var canNavNext = this.WhenAnyValue(x => CurrentPage.CanNavigateNext);
+        // Console.WriteLine(canNavNext);
+        // var canNavigatePrevious = this.WhenAnyValue(x => CurrentPage.CanNavigatePrevious);
+        // NavigateNextCommand = ReactiveCommand.Create(NavigateNext, canNavNext);
+        // NavigatePreviousCommand = ReactiveCommand.Create(NavigatePrevious, canNavigatePrevious);
+        // this.WhenAnyValue(x => x.Username, x => x.Password).Subscribe(_ => UpdateCanNavigateNext());
     }
 
     [Required]
@@ -42,24 +45,20 @@ public class LoginViewModel: PageViewModelBase
         protected set { this.RaiseAndSetIfChanged(ref _canNavigateNext, value); }
     }
 
-    private readonly PageViewModelBase[] Pages =
-    {
-        new LoginViewModel(),
-        new MainViewModel(),
-    };
-    private PageViewModelBase _currentPage;
+    private readonly List<PageViewModelBase> Pages;
+    private static PageViewModelBase _currentPage;
 
-    public PageViewModelBase CurrentPage
+    public static PageViewModelBase CurrentPage
     {
-        get { return _currentPage; }
-        private set { this.RaiseAndSetIfChanged(ref _currentPage, value); }
+        get => _currentPage;
+        set => _currentPage = value;
     }
     public ICommand NavigateNextCommand { get; }
 
     private void NavigateNext()
     {
         var index = Pages.IndexOf(CurrentPage) +1;
-        if (index >= Pages.Length)
+        if (index >= Pages.Count)
         {
             index = 0;
         }
@@ -84,6 +83,18 @@ public class LoginViewModel: PageViewModelBase
 
     private void UpdateCanNavigateNext()
     {
-        CanNavigateNext = LoginView.LoginSuccess();
+        if (CurrentPage is LoginViewModel loginView)
+        {
+            CanNavigateNext = LoginView.LoginSuccess();
+            CanNavigateNext = loginView.CanNavigateNext;
+            Console.WriteLine(CanNavigateNext);
+        }
+        else
+        {
+            CanNavigateNext = false;
+            Console.WriteLine("The window is not a LoginViewModel");
+        }
+        
+        
     }
 }
