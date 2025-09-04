@@ -12,6 +12,8 @@ public class MainWindowViewModel: PageViewModelBase
         CurrentPage = _pages[0];
         var canNavForward = this.WhenAnyValue(x => x.CurrentPage.CanNavigateForward);
         var canNavBack = this.WhenAnyValue(x => x.CurrentPage.CanNavigateBack);
+        NavigateForwardCommand = ReactiveCommand.Create(NavigateForward, canNavForward);
+        NavigateBackCommand = ReactiveCommand.Create(NavigateBack, canNavBack);
     }
 
     private readonly PageViewModelBase[] _pages = 
