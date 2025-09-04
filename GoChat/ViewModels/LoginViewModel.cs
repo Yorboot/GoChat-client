@@ -7,7 +7,7 @@ using ReactiveUI;
 using GoChat.Views;
 namespace GoChat.ViewModels;
 
-public class LoginViewModel
+public class LoginViewModel:PageViewModelBase
 {
     private static readonly Lazy<LoginViewModel> _instance = new(() => new LoginViewModel());
     public static LoginViewModel Instance => _instance.Value;
