@@ -1,9 +1,15 @@
 ﻿namespace GoChat.ViewModels;
 
-public class MainWindowViewModel: ViewModelBase
+public class MainWindowViewModel: PageViewModelBase
 {
     public MainWindowViewModel()
     {
         
     }
+
+    private readonly PageViewModelBase[] _pages = 
+    {
+        LoginViewModel.Instance,
+        MainViewModel.Instance
+    };
 }
