@@ -1,7 +1,8 @@
-﻿namespace GoChat.ViewModels;
+using System.Runtime.CompilerServices;
 
-public abstract class PageViewModelBase:ViewModelBase
+namespace GoChat.ViewModels;
+
+public class PageViewModelBase: ViewModelBase
 {
-    public abstract bool CanNavigateNext { get; protected set; }
-    public abstract bool CanNavigatePrevious { get; protected set; }
+    
 }

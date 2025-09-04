@@ -12,10 +12,10 @@
         <vm:LoginViewModel/>
     </Design.DataContext>
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-        <TransitioningContentControl Content="{Binding CurrentPage}"></TransitioningContentControl>
-        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center" Text="{Binding Title }"></TextBlock>
-        <TextBox Watermark="Enter Username" Text="{Binding Username}"></TextBox>
-        <TextBox Watermark="Password"  Text="{Binding Password}" PasswordChar="["></TextBox>
-        <Button Click="SetNextPage">Confirm</Button>
+        <TransitioningContentControl Content="{Binding }"></TransitioningContentControl>
+        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center" Text="{Binding }"></TextBlock>
+        <TextBox Watermark="Enter Username" Text="{Binding }"></TextBox>
+        <TextBox Watermark="Password"  Text="{Binding }" PasswordChar="["></TextBox>
+        <Button >Confirm</Button>
     </StackPanel>
 </UserControl>

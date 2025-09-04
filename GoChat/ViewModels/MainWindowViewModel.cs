@@ -1,6 +1,6 @@
 ﻿namespace GoChat.ViewModels;
 
-public class MainWindowViewModel
+public class MainWindowViewModel: ViewModelBase
 {
     public MainWindowViewModel()
     {
