@@ -9,7 +9,9 @@ public class MainWindowViewModel: PageViewModelBase
 {
     public MainWindowViewModel()
     {
-        
+        CurrentPage = _pages[0];
+        var canNavForward = this.WhenAnyValue(x => x.CurrentPage.CanNavigateForward);
+        var canNavBack = this.WhenAnyValue(x => x.CurrentPage.CanNavigateBack);
     }
 
     private readonly PageViewModelBase[] _pages = 
