@@ -5,7 +5,7 @@ using ReactiveUI;
 
 namespace GoChat.ViewModels;
 
-public class MainWindowViewModel: PageViewModelBase
+public class MainWindowViewModel: ViewModelBase
 {
     public MainWindowViewModel()
     {
