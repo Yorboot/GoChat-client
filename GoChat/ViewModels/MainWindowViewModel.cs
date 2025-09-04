@@ -1,4 +1,6 @@
-﻿namespace GoChat.ViewModels;
+﻿using ReactiveUI;
+
+namespace GoChat.ViewModels;
 
 public class MainWindowViewModel: PageViewModelBase
 {
@@ -12,4 +14,12 @@ public class MainWindowViewModel: PageViewModelBase
         LoginViewModel.Instance,
         MainViewModel.Instance
     };
+    private PageViewModelBase _CurrentPage;
+
+    public PageViewModelBase CurrentPage
+    {
+        get => _CurrentPage; 
+        private set => this.RaiseAndSetIfChanged(ref _CurrentPage, value);
+    }
+    
 }
