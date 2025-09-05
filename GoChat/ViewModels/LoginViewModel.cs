@@ -50,5 +50,11 @@ public class LoginViewModel:PageViewModelBase
         
         protected set{this.RaiseAndSetIfChanged(ref _CanNavigateForward, value);}
     }
+
+    public override bool CanNavigateBack
+    {
+        get => false;
+        protected set => throw new NotImplementedException();
+    }
     
 }
