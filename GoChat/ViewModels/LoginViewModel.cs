@@ -29,5 +29,13 @@ public class LoginViewModel:PageViewModelBase
         }
         set {this.RaiseAndSetIfChanged(ref _username, value);}
     }
-
+    private bool _CanNavigateForward;
+    [Required]
+    public override bool CanNavigateForward
+    {
+        get { return _CanNavigateForward;} 
+        
+        protected set{this.RaiseAndSetIfChanged(ref _CanNavigateForward, value);}
+    }
+    
 }
