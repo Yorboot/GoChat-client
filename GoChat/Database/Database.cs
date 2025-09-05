@@ -62,6 +62,34 @@ public class Database
             return null;
         }
     }
+    public User getUser(MySqlConnection connection, string username, string password)
+    {
+        MySqlCommand cmd = new MySqlCommand();
+        cmd.CommandText = "Select id,username,password from users where username=@username and password=@password";
+        cmd.Parameters.AddWithValue("@username", username);
+        cmd.Parameters.AddWithValue("@password", password);
+        cmd.Connection = connection;
+        using (var reader = cmd.ExecuteReader())
+        {
+            if (reader.Read())
+            {
+                if (reader["username"].ToString() != string.Empty && reader["username"].ToString() != null &&
+                    reader["password"].ToString() != string.Empty && reader["password"].ToString() != null &&
+                    reader["id"] != DBNull.Value)
+                {
+                    User u = new User()
+                    {
+                        id = Convert.ToInt32(reader["id"]),
+                        username = reader["username"].ToString(),
+                        password = reader["password"].ToString()
+                    };
+                    return u;
+                }
+            }
+        }
+
+        return new User();
+    }
 }
 
 public struct Message
@@ -70,4 +98,11 @@ public struct Message
 
     public int userId { get; set; }
     public string content { get; set; }
+}
+
+public struct User
+{
+    public int id { get; set; }
+    public string username { get; set; }
+    public string password { get; set; }
 }
