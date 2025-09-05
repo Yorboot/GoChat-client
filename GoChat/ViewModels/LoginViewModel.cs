@@ -11,7 +11,7 @@ public class LoginViewModel:PageViewModelBase
 {
     private static readonly Lazy<LoginViewModel> _instance = new(() => new LoginViewModel());
     public static LoginViewModel Instance => _instance.Value;
-    private LoginViewModel()
+    public LoginViewModel()
     {
     }
 
