@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Windows.Input;
 using DynamicData;
 using ReactiveUI;
@@ -21,11 +22,16 @@ public class MainWindowViewModel: ViewModelBase
         LoginViewModel.Instance,
         MainViewModel.Instance
     };
-    private PageViewModelBase _CurrentPage;
+    private PageViewModelBase? _CurrentPage;
+    [Required]
 
     public PageViewModelBase CurrentPage
     {
-        get => _CurrentPage; 
+        get
+        {
+            if (_CurrentPage != null) return _CurrentPage;
+            throw new NullReferenceException("CurrentPage is not set");
+        }
         private set => this.RaiseAndSetIfChanged(ref _CurrentPage, value);
     }
     public ICommand NavigateForwardCommand { get; }
