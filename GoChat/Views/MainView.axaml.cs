@@ -13,8 +13,6 @@ namespace GoChat.Views;
 
 public partial class MainView : UserControl
 {   
-    private static Database.Database database = new ();
-    MySql.Data.MySqlClient.MySqlConnection conn;
     static string host = "http://127.0.0.1:8080";
     static string endpoint = "/";
     string url = host + endpoint;
@@ -24,7 +22,6 @@ public partial class MainView : UserControl
     public MainView()
     {
         InitializeComponent();
-        conn = database.InitDb();
         PrintMessages();
     }
 
@@ -82,7 +79,7 @@ public partial class MainView : UserControl
 
     private void PrintMessages()
     {
-        List<Message> messages = database.getMessages(conn);
+        List<Message> messages = Database.Database.getMessages();
         int index = 0;
         foreach (Message msg in messages)
         {
@@ -103,7 +100,7 @@ public partial class MainView : UserControl
             if (index == messages.Count)
             {
                 Console.WriteLine($"set last id to{msg.id}");
-                database.LastMessageId = msg.id;
+                Database.Database.LastMessageId = msg.id;
             }
         }
     }
