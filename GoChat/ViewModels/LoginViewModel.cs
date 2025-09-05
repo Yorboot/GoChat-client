@@ -29,6 +29,19 @@ public class LoginViewModel:PageViewModelBase
         }
         set {this.RaiseAndSetIfChanged(ref _username, value);}
     }
+    private string? _password;
+
+    [Required]
+    public string? Password
+    {
+        get
+        {
+            if (_password == null) throw new NullReferenceException("Password is not set");
+            return _password;
+        }
+        set { this.RaiseAndSetIfChanged(ref _password, value); }
+    }
+
     private bool _CanNavigateForward;
     [Required]
     public override bool CanNavigateForward
