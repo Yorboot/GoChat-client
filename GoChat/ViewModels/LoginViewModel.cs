@@ -13,6 +13,21 @@ public class LoginViewModel:PageViewModelBase
     public static LoginViewModel Instance => _instance.Value;
     public LoginViewModel()
     {
+        this.WhenAnyValue(x => x.Username, x => !string.IsNullOrWhiteSpace(x.))
+            .Subscribe(x => CanNavigateForward = x);
+    }
+
+    private string? _username;
+
+    [Required]
+    public string? Username
+    {
+        get
+        {
+            if(_username == null) throw new NullReferenceException("Username is not set");
+            return _username;
+        }
+        set {this.RaiseAndSetIfChanged(ref _username, value);}
     }
 
 }
