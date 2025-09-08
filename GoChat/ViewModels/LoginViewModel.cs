@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using DynamicData;
 using ReactiveUI;
@@ -56,5 +57,15 @@ public class LoginViewModel:PageViewModelBase
         get => false;
         protected set => throw new NotImplementedException();
     }
+    private void UpdateCanNavigateForward()
+    {
+        CanNavigateForward = 
+    }
+    public ICommand LoginCommand { get; }
+    private async Task Login()
+    {
+        Database.Database.getUser(_username, _password);
+    }
+    
     
 }
